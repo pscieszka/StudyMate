@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import BusinessUser
-from .models import BusinessUser, SystemUser
+from .models import BusinessUser, SystemUser, Add
 
 
 class BusinessUserSerializer(serializers.ModelSerializer):
@@ -40,3 +40,10 @@ class SystemUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = SystemUser
         fields =  ['username', 'email', 'password'] # TODO  dodaj wszystkie potrzebne pola
+
+
+
+class AddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Add
+        fields = '__all__'

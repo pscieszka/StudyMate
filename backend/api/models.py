@@ -27,3 +27,14 @@ class SystemUser(AbstractUser):
         related_name="custom_user_permissions_set",  
         blank=True,
     )
+
+class Add(models.Model):
+    subject = models.CharField(max_length=100)
+    description = models.TextField()
+    level = models.CharField(max_length=50, blank=True, null=True)
+    learning_mode = models.CharField(max_length=50)
+    frequency = models.CharField(max_length=50, blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.subject
