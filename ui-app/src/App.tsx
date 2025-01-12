@@ -1,48 +1,31 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Register from './components/Register';
-import Login from './components/Login';
-import UserList from './components/UserList';
-import Navigation from './components/Navigation';
-import PrivateRoute from './components/PrivateRoute'; 
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Add from "./pages/Add";
+import Account from "./pages/Account";
+import "./App.css";
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Navigation />
-            <Routes>
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/home"
+          element={
+            <div className="home-content">
+              <h1>Welcome to StudyMate!</h1>
+              <p>Start exploring and adding your tasks.</p>
+            </div>
+          }
+        />
 
-                
-                <Route
-                    path="/users"
-                    element={
-                        <PrivateRoute>
-                            <UserList />
-                        </PrivateRoute>
-                    }
-                />
-                
-                <Route
-                    path="/users/:id/update"
-                    element={
-                        <PrivateRoute>
-                            <div>Update User Component</div>
-                        </PrivateRoute>
-                    }
-                />
+        <Route path="/add" element={<Add />} />
+        <Route path="/account" element={<Account />} />
 
-                <Route
-                    path="/users/:id"
-                    element={
-                        <PrivateRoute>
-                            <div>User Details Component</div>
-                        </PrivateRoute>
-                    }
-                />
-            </Routes>
-        </BrowserRouter>
-    );
+        <Route path="/" element={<div>home</div>} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

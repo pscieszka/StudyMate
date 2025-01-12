@@ -12,6 +12,13 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    #nowe endpointy, te wyzej pewnie trzeba bedzie usunac jak juz beda dzialac nowe
+    
+    path('', views.home, name='home'),
+    path('home/', views.home, name='home'),
+    path('add/', views.add_view, name='add'),
+    path('account/', views.account_view, name='account'),
+
     
 ]
 
