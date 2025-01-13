@@ -7,35 +7,47 @@
   height: 100vh; /* Wysokość na całą stronę */
   padding: 20px;
   box-sizing: border-box;
+
 }
 
 /* Pasek wyszukiwania */
 .search-bar {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  width: 100%; /* Dopasowanie szerokości */
+  max-width: 600px; /* Maksymalna szerokość taka jak ramka kategorii */
+  background-color: #ffffff; /* Tło */
+  border: 1px solid #e5e5e5; /* Subtelna ramka */
+  border-radius: 5px; /* Zaokrąglone rogi */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Mniejszy cień */
+  padding: 10px; /* Wewnętrzne odstępy */
+  gap: 10px; /* Odstęp między elementami */
   margin-bottom: 40px; /* Odstęp od przycisków */
 }
 
 .search-bar input {
   flex: 1;
-  padding: 10px;
+  border: none;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  color: #aaa; /* Kolor placeholdera */
+  outline: none; /* Usuwa niepotrzebne obramowanie po zaznaczeniu */
 }
 
 .search-bar button {
+  font-family: Roboto;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
+  font-weight: 600;
   color: white;
+  background-color: #68c5cc; /* Kolor przycisku */
   border: none;
-  border-radius: 4px;
+  border-radius: 10px; /* Zaokrąglone przyciski */
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .search-bar button:hover {
-  background-color: #0056b3;
+  background-color: #5bd6df;
 }
 
 /* Siatka kategorii */
@@ -45,6 +57,10 @@
   gap: 20px; /* Odstęp między przyciskami */
   width: 100%; /* Dopasowanie do kontenera */
   max-width: 600px; /* Maksymalna szerokość siatki */
+  padding: 40px; /* Odstęp między przyciskami a ramką */
+  border-radius: 10px; /* Zaokrąglone rogi kontenera */
+  background-color: #ffffff;
+  box-shadow: 0px 2px 15px #aacfd0; /* Mniejszy cień wokół */
 }
 
 /* Styl przycisków */
@@ -52,21 +68,23 @@
   padding: 10px;
   font-size: 16px;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #ced7e4;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .category-button:hover {
   background-color: #e6f7ff;
+  transform: scale(1.05); /* Efekt powiększenia na hover */
 }
 
 .category-button.active {
-  background-color: #007bff;
+  background-color: #9ebde7;
   color: white;
-  border-color: #0056b3;
+  border-color: #9ebde7;
 }
 
 .category-button:active {
