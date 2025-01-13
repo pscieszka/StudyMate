@@ -18,7 +18,7 @@ const Add: React.FC = () => {
       level,
       learning_mode: learningMode,
       frequency,
-      start_date: startDate || null, // Null jeśli brak daty
+      start_date: startDate || null,
     };
 
     try {

@@ -6,7 +6,16 @@ from .serializers import AddSerializer, RegisterSerializer
 
 @api_view(['GET'])
 def home(request):
-    return Response({"message": "home, dziala"}, status=status.HTTP_200_OK)
+    """
+    Widok obsługujący pobieranie wszystkich ogłoszeń z opcją filtrowania po przedmiocie.
+    """
+    subject = request.GET.get('subject')
+    if subject:
+        ads = Add.objects.filter(subject=subject)
+    else:
+        ads = Add.objects.all()
+    serializer = AddSerializer(ads, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def register(request):
@@ -32,5 +41,4 @@ def add_view(request):
 
 @api_view(['GET'])
 def account(request):
-
     return Response({"message": "account, dziala"}, status=status.HTTP_200_OK)

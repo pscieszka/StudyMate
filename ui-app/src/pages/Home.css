@@ -1,0 +1,74 @@
+/* Kontener całej strony */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Wyśrodkuj poziomo */
+  justify-content: center; /* Wyśrodkuj pionowo */
+  height: 100vh; /* Wysokość na całą stronę */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Pasek wyszukiwania */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 40px; /* Odstęp od przycisków */
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Siatka kategorii */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 przyciski w wierszu */
+  gap: 20px; /* Odstęp między przyciskami */
+  width: 100%; /* Dopasowanie do kontenera */
+  max-width: 600px; /* Maksymalna szerokość siatki */
+}
+
+/* Styl przycisków */
+.category-button {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.category-button:hover {
+  background-color: #e6f7ff;
+}
+
+.category-button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+
+.category-button:active {
+  transform: scale(0.95); /* Efekt kliknięcia */
+}

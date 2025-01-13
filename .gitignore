@@ -64,3 +64,5 @@ __pycache__/
 # Pliki systemowe (zwykle ukryte)
 .DS_Store
 Thumbs.db
+
+*storybook.log

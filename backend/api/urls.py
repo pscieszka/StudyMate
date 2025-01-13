@@ -18,7 +18,7 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('add/', views.add_view, name='add'),
     #path('account/', views.account_view, name='account'),
-
+    path('ads/', views.home, name='ads'),  # To już masz w `home`
+    path('ads/<str:subject>/', views.home, name='subject_ads'),  # Dodaję obsługę query param (możesz używać tego samego widoku)
     
 ]
-

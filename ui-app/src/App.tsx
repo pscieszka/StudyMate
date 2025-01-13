@@ -3,26 +3,19 @@ import Navbar from "./components/Navbar";
 import Add from "./pages/Add";
 import Account from "./pages/Account";
 import "./App.css";
+import Home from "./pages/Home.tsx";
+import SubjectAds from "./pages/SubjectAds";
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route
-          path="/home"
-          element={
-            <div className="home-content">
-              <h1>Welcome to StudyMate!</h1>
-              <p>Start exploring and adding your tasks.</p>
-            </div>
-          }
-        />
-
+        <Route path="/home" element={<Home/>}/>
         <Route path="/add" element={<Add />} />
         <Route path="/account" element={<Account />} />
-
-        <Route path="/" element={<div>home</div>} />
+          <Route path="/ads/:subject" element={<SubjectAds/>} />
+        <Route path="/" element={<Home/>} />
       </Routes>
     </Router>
   );
