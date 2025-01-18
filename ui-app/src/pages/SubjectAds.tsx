@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import "./SubjectAds.css";
 
 interface Ad {
   id: number;
@@ -15,9 +16,16 @@ interface Ad {
 const SubjectAds: React.FC = () => {
   const { subject } = useParams<{ subject: string }>();
   const [ads, setAds] = useState<Ad[]>([]);
+  const [filteredAds, setFilteredAds] = useState<Ad[]>([]);
+  const [filters, setFilters] = useState({
+    level: "",
+    learning_mode: "",
+    frequency: "",
+    start_date: "",
+  });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Pobierz ogłoszenia dla danego przedmiotu
     const fetchAds = async () => {
       try {
         const response = await fetch(
@@ -26,35 +34,115 @@ const SubjectAds: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           setAds(data);
+          setFilteredAds(data);
         } else {
-          console.error("Błąd podczas pobierania ogłoszeń");
+          console.error("Error fetching ads");
         }
       } catch (error) {
-        console.error("Błąd połączenia:", error);
+        console.error("Connection error:", error);
       }
     };
 
     fetchAds();
   }, [subject]);
 
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    const normalizedFilters = { ...filters, [name]: value };
+  
+    // Normalize specific filter values for comparison
+    const normalizeValue = (key: string, val: string) => {
+      if (key === "learning_mode") {
+        return val === "Offline (spotkania na żywo)" ? "offline" : val.toLowerCase();
+      }
+      if (key === "frequency") {
+        return val.toLowerCase();
+      }
+      return val;
+    };
+  
+    const filtered = ads.filter((ad) =>
+      Object.entries(normalizedFilters).every(([key, filterValue]) => {
+        if (filterValue === "") return true; // Ignore empty filters
+        const adValue = normalizeValue(key, ad[key as keyof Ad] as string);
+        const normalizedFilterValue = normalizeValue(key, filterValue);
+        return adValue === normalizedFilterValue;
+      })
+    );
+  
+    setFilters(normalizedFilters);
+    setFilteredAds(filtered);
+  };
+  
+
+  const handleAdClick = (adId: number) => {
+    navigate(`/ads/${adId}`);
+  };
+
   return (
-    <div>
-      <h1>Ogłoszenia dla: {subject}</h1>
-      {ads.length > 0 ? (
-        <ul>
-          {ads.map((ad) => (
-              <li key={ad.id}>
-                  <h2>{ad.subject}</h2>
-                  <p>{ad.description}</p>
-                  <p><strong>Poziom: </strong>{ad.level}</p>
-                  <p><strong>Forma nauki: </strong>{ad.learning_mode}</p>
-                  <p><strong>Częstotliwość: </strong>{ad.frequency}</p>
-                  {ad.start_date && <p><strong>Data rozpoczęcia: </strong>{ad.start_date}</p>}
-              </li>
+    <div className="ads-container">
+      <h1 className="ads-title">Ogłoszenia dla: {subject}</h1>
+
+      {/* Filters */}
+      <div className="filters">
+        <select
+          name="level"
+          value={filters.level}
+          onChange={handleFilterChange}
+          className="filter-select"
+        >
+          <option value="">Poziom (wszystkie)</option>
+          <option value="Liceum">Liceum</option>
+          <option value="Studia">Studia</option>
+          <option value="Podstawowka">Podstawowka</option>
+        </select>
+        <select
+          name="learning_mode"
+          value={filters.learning_mode}
+          onChange={handleFilterChange}
+          className="filter-select"
+        >
+          <option value="">Forma nauki (wszystkie)</option>
+          <option value="online">Online</option>
+          <option value="offline">Stacjonarna</option>
+        </select>
+        <select
+  name="frequency"
+  value={filters.frequency}
+  onChange={handleFilterChange}
+  className="filter-select"
+>
+  <option value="">Częstotliwość (wszystkie)</option>
+  <option value="Raz w tygodniu">Raz w tygodniu</option>
+  <option value="Dwa razy w tygodniu">Dwa razy w tygodniu</option>
+  <option value="Codziennie">Codziennie</option>
+  <option value="Raz w miesiącu">Raz w miesiącu</option>
+  <option value="Raz na dwa tygodnie">Raz na dwa tygodnie</option>
+</select>
+
+      </div>
+
+      {filteredAds.length > 0 ? (
+        <div className="ads-grid">
+          {filteredAds.map((ad) => (
+            <div
+              key={ad.id}
+              className="ad-card"
+              onClick={() => handleAdClick(ad.id)}
+            >
+              <h2 className="ad-title">{ad.title}</h2>
+              <p className="ad-description">{ad.description}</p>
+              <p><strong>Poziom:</strong> {ad.level}</p>
+              <p><strong>Forma nauki:</strong> {ad.learning_mode}</p>
+              <p><strong>Częstotliwość:</strong> {ad.frequency}</p>
+              {ad.start_date && (
+                <p><strong>Data rozpoczęcia:</strong> {ad.start_date}</p>
+              )}
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
-          <p>Brak ogłoszeń dla wybranego przedmiotu.</p>
+        <p className="no-ads">Brak ogłoszeń spełniających kryteria.</p>
       )}
     </div>
   );
