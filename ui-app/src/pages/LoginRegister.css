@@ -1,0 +1,82 @@
+/* Główne tło */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #007bff; /* Niebieskie tło */
+  }
+  
+  /* Białe okienko */
+  .auth-box {
+    background-color: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Zakładki logowania/rejestracji */
+  .auth-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .auth-tab {
+    flex: 1;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  
+  .auth-tab.active {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+  }
+  
+  .auth-tab:hover {
+    color: #0056b3;
+  }
+  
+  /* Formularz logowania/rejestracji */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .auth-input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .auth-input:focus {
+    border-color: #007bff;
+  }
+  
+  /* Przycisk */
+  .auth-button {
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .auth-button:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,23 +1,14 @@
 from rest_framework import serializers
-from .models import BusinessUser
-from .models import BusinessUser, SystemUser, Add
+
+from .models import SystemUser, Add
 
 
-class BusinessUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BusinessUser
-        fields = ['id', 'first_name', 'last_name', 'role']
-
-# Serializery dla SystemUser
 class RegisterSerializer(serializers.ModelSerializer):
-    """
-    Serializer do rejestracji użytkownika systemowego.
-    """
-    password = serializers.CharField(write_only=True) # TODO zadbaj by to pole było jedynie do odczytu
+    password = serializers.CharField(write_only=True) 
 
     class Meta:
         model = SystemUser
-        fields = ['username', 'email', 'password']  # TODO dodaj wszystkie potrzebne pola
+        fields = ['username', 'email', 'password'] 
 
     def validate_email(self, value):
         if SystemUser.objects.filter(email=value).exists():
@@ -32,18 +23,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
-
 class SystemUserSerializer(serializers.ModelSerializer):
-    """
-    Serializer do odczytu danych użytkownika systemowego.
-    """
     class Meta:
         model = SystemUser
-        fields =  ['username', 'email', 'password'] # TODO  dodaj wszystkie potrzebne pola
-
-
+        fields =  ['username', 'email', 'password'] 
 
 class AddSerializer(serializers.ModelSerializer):
     class Meta:
         model = Add
         fields = '__all__'
+

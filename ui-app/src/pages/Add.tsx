@@ -12,6 +12,10 @@ const Add: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    const token = sessionStorage.getItem("accessToken"); 
+    const username = localStorage.getItem("username");
+    
+
     const adData = {
       subject,
       description,
@@ -19,6 +23,7 @@ const Add: React.FC = () => {
       learning_mode: learningMode,
       frequency,
       start_date: startDate || null,
+      username: username,
     };
 
     try {
@@ -26,6 +31,7 @@ const Add: React.FC = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
         },
         body: JSON.stringify(adData),
       });
@@ -64,7 +70,6 @@ const Add: React.FC = () => {
             <option>Język hiszpański</option>
             <option>Język polski</option>
             <option>Historia</option>
-
           </select>
         </div>
         <div className="form-group">
@@ -106,7 +111,6 @@ const Add: React.FC = () => {
             <option>Codziennie</option>
             <option>Raz w miesiącu</option>
             <option>Raz na dwa tygodnie</option>
-
           </select>
         </div>
         <div className="form-group">

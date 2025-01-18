@@ -2,7 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  isAuthenticated: boolean;
+  onLogout: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ isAuthenticated, onLogout }) => {
   return (
     <nav className="navbar">
       <Link to="/home" className="navbar-logo">StudyMate</Link>
@@ -11,7 +16,16 @@ const Navbar: React.FC = () => {
         <Link to="/home" className="navbar-link">Home</Link>
         <span className="navbar-icon" aria-label="Favorites">❤️</span>
         <Link to="/account" className="navbar-link">My Account</Link>
-        <button className="navbar-logout-button">Log Out</button>
+        {isAuthenticated ? (
+          <button onClick={onLogout} className="navbar-logout-button">
+            Log Out
+          </button>
+        ) : (
+          <>
+            <Link to="/login" className="navbar-link">Log In</Link>
+            <Link to="/register" className="navbar-link">Register</Link>
+          </>
+        )}
       </div>
     </nav>
   );
