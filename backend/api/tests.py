@@ -33,9 +33,6 @@ class AuthenticationTests(TestCase):
         'password': 'testpass'
     }
         response = self.client.post(self.register_url, user_data, format='json')
-        print(f"Response status code: {response.status_code}")
-        print(f"Response data: {response.data}")
-
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(SystemUser.objects.count(), 2)
         self.assertTrue(SystemUser.objects.filter(username=self.user_data['username']).exists())
