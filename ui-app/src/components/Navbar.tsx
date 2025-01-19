@@ -14,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ isAuthenticated, onLogout }) => {
       <div className="navbar-links">
         <Link to="/add" className="navbar-add-button">Add</Link>
         <Link to="/home" className="navbar-link">Home</Link>
-        <span className="navbar-icon" aria-label="Favorites">❤️</span>
+        <Link to="/favorites" className="navbar-icon" aria-label="Favorites">❤️</Link>
         <Link to="/account" className="navbar-link">My Account</Link>
         {isAuthenticated ? (
           <button onClick={onLogout} className="navbar-logout-button">

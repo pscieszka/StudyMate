@@ -14,6 +14,11 @@ class SystemUser(AbstractUser):
         related_name="custom_user_permissions_set",  
         blank=True,
     )
+    favorites = models.ManyToManyField(
+        'Add', 
+        related_name='favorited_by', 
+        blank=True
+    ) 
 
 class Add(models.Model):
     subject = models.CharField(max_length=100)

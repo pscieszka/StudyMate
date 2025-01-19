@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import SubjectAds from "./pages/SubjectAds";
 import LoginRegister from "./pages/LoginRegister";
 import PrivateRoute from "./components/PrivateRoute";
+import Favorites from "./pages/Favorites";
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
@@ -40,6 +41,14 @@ function App() {
                     element={
                         <PrivateRoute>
                             <Account/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/favorites"
+                    element={
+                        <PrivateRoute>
+                            <Favorites />
                         </PrivateRoute>
                     }
                 />

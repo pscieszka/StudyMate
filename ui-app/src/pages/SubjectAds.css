@@ -135,3 +135,13 @@
     padding: 15px; /* Adjust padding for smaller screens */
   }
 }
+.favorite-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.favorite-button.favorited {
+  color: red;
+}

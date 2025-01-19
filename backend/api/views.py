@@ -79,3 +79,34 @@ def get_user_info(request):
         "username": request.user.username,
         "email": request.user.email,
     }, status=200)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_to_favorites(request, add_id):
+    add = Add.objects.get(id=add_id)
+    request.user.favorites.add(add)
+    return Response({"status": "added"})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def remove_from_favorites(request, add_id):
+    add = Add.objects.get(id=add_id)
+    request.user.favorites.remove(add)
+    return Response({"status": "removed"})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_favorites(request):
+    user = request.user
+    favorite_ids = user.favorites.values_list('id', flat=True) 
+    return Response(list(favorite_ids))
+
+@api_view(['GET'])
+def get_ad_details(request, id):
+    try:
+        ad = Add.objects.get(id=id)
+    except Add.DoesNotExist:
+        return Response({"error": "Ogłoszenie nie zostało znalezione"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = AddSerializer(ad)
+    return Response(serializer.data, status=status.HTTP_200_OK)
