@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import {useNavigate} from "react-router-dom";
 
 const Home: React.FC = () => {
-   const [searchQuery, setSearchQuery] = useState("");
-   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-     const categories = [
+  const categories = [
     "Matematyka",
     "Fizyka",
     "Informatyka",
@@ -18,15 +18,28 @@ const Home: React.FC = () => {
     "WOS",
   ];
 
-   const handleSearch = () => {
-    console.log("Szukaj:", searchQuery);
-  };
+const handleSearch = async () => {
+  try {
+    const response = await fetch(`http://localhost:8000/api/search/${encodeURIComponent(searchQuery)}/`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Wyniki wyszukiwania:", data);
+      navigate(`/search/${encodeURIComponent(searchQuery)}`); // Przenosimy do wyników wyszukiwania
+    } else {
+      alert("Wystąpił błąd podczas wyszukiwania.");
+    }
+  } catch (error) {
+    console.error("Błąd połączenia:", error);
+    alert("Nie udało się połączyć z serwerem.");
+  }
+};
+
 
   const handleCategoryClick = (category: string) => {
     navigate(`/ads/${encodeURIComponent(category)}`);
   };
 
- return (
+  return (
     <div className="search-container">
       {/* Pasek wyszukiwania */}
       <div className="search-bar">
@@ -47,13 +60,12 @@ const Home: React.FC = () => {
             className="category-button"
             onClick={() => handleCategoryClick(category)}
           >
-              {category}
+            {category}
           </button>
         ))}
       </div>
     </div>
   );
 };
-
 
 export default Home;

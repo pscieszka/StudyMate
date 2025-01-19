@@ -14,8 +14,9 @@ urlpatterns = [
     path('add/', views.add_view, name='add'),
     #path('account/', views.account_view, name='account'),
     path('ads/', views.home, name='ads'),  # To już masz w `home`
-    path('ads/<str:subject>/', views.home, name='subject_ads'),  # Dodaję obsługę query param (możesz używać tego samego widoku)
-    path('api/search/', views.search_view, name='search'),
+    path('ads/<str:subject>/', views.home, name='subject_ads'),
+    path('search/<str:query>/', views.search_view, name='search'),
     path('ads/<str:username>', views.ads_by_username_view, name='ads_by_username'),
     path('userinfo', views.get_user_info, name='user_info') # zeby dodac kto tworzy zadanie i potem zeby mozna bylo filtrowac po uzytkowniku
 ]
+

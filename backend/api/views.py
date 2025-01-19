@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Add   
 from .serializers import AddSerializer, RegisterSerializer
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 
 
 @api_view(['POST'])
@@ -38,20 +39,30 @@ def add_view(request):
         )
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def account(request):
     return Response({"message": "account, dziala"}, status=status.HTTP_200_OK)
 
+
 @api_view(['GET'])
-def search_view(request):
-    query = request.GET.get('query')
-    if query:
-        ads = Add.objects.filter(subject__icontains=query)
-    else:
-        ads = Add.objects.all()
+def search_view(request, query):
+    if not query:
+        return Response({"message": "Brak zapytania"}, status=status.HTTP_400_BAD_REQUEST)
+
+    words = query.split()
+
+    q_objects = Q(subject__icontains=words[0]) | Q(description__icontains=words[0]) | Q(level__icontains=words[0])
+
+    for word in words[1:]:
+        q_objects &= (Q(subject__icontains=word) |
+                      Q(description__icontains=word) |
+                      Q(level__icontains=word))
+
+    ads = Add.objects.filter(q_objects)
+
     serializer = AddSerializer(ads, many=True)
+
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
