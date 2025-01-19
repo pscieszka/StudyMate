@@ -14,8 +14,9 @@ class AuthenticationTests(TestCase):
         self.add_url = reverse('add')  
         self.user_data = {
             'username': 'testuser',
-            'password': 'testpass',
-            'email': 'testuser@test.com'
+            'email': 'testuser@test.com',
+            'password': 'testpass'
+            
         }
 
         SystemUser.objects.create_user(
@@ -59,7 +60,7 @@ class AuthenticationTests(TestCase):
             'password': self.user_data['password']
         }
         login_response = self.client.post(self.login_url, login_data, format='json')
-        token = login_response.data['token']
+        token = login_response.data['access']
 
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
 
