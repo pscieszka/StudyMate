@@ -21,8 +21,9 @@ class AuthenticationTests(TestCase):
 
         SystemUser.objects.create_user(
             username=self.user_data['username'],
-            password=self.user_data['password'],
-            email=self.user_data['email']
+            email=self.user_data['email'],
+            password=self.user_data['password']
+            
         )
 
     def testRegister(self):
@@ -41,7 +42,7 @@ class AuthenticationTests(TestCase):
         response = self.client.post(self.login_url, login_data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('token', response.data)
+        self.assertIn('accesss', response.data)
 
     def testLoginWithWrongPassword(self):
         login_data = {
@@ -77,7 +78,7 @@ class AuthenticationTests(TestCase):
         response = self.client.post(self.add_url, task_data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertIn('id', response.data)
+        self.assertIn('id', response.data['data'])
         self.assertEqual(response.data['subject'], task_data['subject'])
 
     def testAddPathWithoutCredentials(self):
