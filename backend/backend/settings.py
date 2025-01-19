@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -113,7 +114,7 @@ DATABASES = {
         'NAME': 'mydatabase',
         'USER': 'myuser',
         'PASSWORD': 'mypassword',
-        'HOST': 'postgres',  # This should match the service name in docker-compose !
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
         'PORT': '5432',
     }
 }
