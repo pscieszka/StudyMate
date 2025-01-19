@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 from .models import SystemUser
-
+from uuid import uuid4
 
 class AuthenticationTests(TestCase):
     def setUp(self):
@@ -25,11 +25,14 @@ class AuthenticationTests(TestCase):
             password=self.user_data['password']
             
         )
-    def tearDown(self):
-        SystemUser.objects.all().delete()
 
     def testRegister(self):
-        response = self.client.post(self.register_url, self.user_data, format='json')
+        user_data = {
+        'username': f'testuser_{uuid4().hex[:6]}',  
+        'email': f'testuser_{uuid4().hex[:6]}@test.com', 
+        'password': 'testpass'
+    }
+        response = self.client.post(self.register_url, user_data, format='json')
         print(f"Response status code: {response.status_code}")
         print(f"Response data: {response.data}")
 
