@@ -28,6 +28,7 @@ services:
   postgres:
     image: postgres:13
     environment:
+      POSTGRES_HOST: postgres
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydatabase
