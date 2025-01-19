@@ -38,7 +38,7 @@ class AuthenticationTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(SystemUser.objects.count(), 2)
-        self.assertEqual(SystemUser.objects.get().username, self.user_data['username'])
+        self.assertTrue(SystemUser.objects.filter(username=self.user_data['username']).exists())
 
     def testLogin(self):
         login_data = {
