@@ -42,7 +42,7 @@ class AuthenticationTests(TestCase):
         response = self.client.post(self.login_url, login_data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('accesss', response.data)
+        self.assertIn('access', response.data)
 
     def testLoginWithWrongPassword(self):
         login_data = {
@@ -79,7 +79,7 @@ class AuthenticationTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('id', response.data['data'])
-        self.assertEqual(response.data['subject'], task_data['subject'])
+        self.assertEqual(response.data['data']['subject'], task_data['subject'])
 
     def testAddPathWithoutCredentials(self):
         task_data = {
