@@ -13,8 +13,8 @@ class AuthenticationTests(TestCase):
         self.login_url = reverse('token_obtain_pair')
         self.add_url = reverse('add')  
         self.user_data = {
-            'username': 'testuser',
-            'email': 'testuser@test.com',
+            'username': 'testuser2',
+            'email': 'testuser@test3.com',
             'password': 'testpass'
             
         }
@@ -25,6 +25,8 @@ class AuthenticationTests(TestCase):
             password=self.user_data['password']
             
         )
+    def tearDown(self):
+        SystemUser.objects.all().delete()
 
     def testRegister(self):
         response = self.client.post(self.register_url, self.user_data, format='json')
@@ -32,7 +34,7 @@ class AuthenticationTests(TestCase):
         print(f"Response data: {response.data}")
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(SystemUser.objects.count(), 1)
+        self.assertEqual(SystemUser.objects.count(), 2)
         self.assertEqual(SystemUser.objects.get().username, self.user_data['username'])
 
     def testLogin(self):
