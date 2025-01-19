@@ -10,7 +10,7 @@ class AuthenticationTests(TestCase):
         self.client = APIClient()
 
         self.register_url = reverse('register')
-        self.login_url = reverse('login')
+        self.login_url = reverse('token_obtain_pair')
         self.add_url = reverse('add')  
         self.user_data = {
             'username': 'testuser',
