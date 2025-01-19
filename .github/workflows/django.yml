@@ -98,4 +98,4 @@ jobs:
         env:
           DATABASE_URL: postgres://testuser:testpassword@localhost:5432/testdb
         run: |
-          python backend/manage.py test backend.api.test
+          python backend/manage.py test backend.api.tests
