@@ -162,3 +162,9 @@ def delete_ad(request, id):
 
     ad.delete()
     return Response({"message": "Ogłoszenie zostało usunięte pomyślnie."}, status=status.HTTP_200_OK)
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def ads_by_assignedUsername_view(request, assignedUsername):
+    ads = Add.objects.filter(assignedUsername=assignedUsername)  
+    serializer = AddSerializer(ads, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

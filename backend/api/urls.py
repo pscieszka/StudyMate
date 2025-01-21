@@ -18,6 +18,7 @@ urlpatterns = [
     path('ads/', views.home, name='ads'), 
     path('search/<str:query>/', views.search_view, name='search'),
     path('ads/<str:username>', views.ads_by_username_view, name='ads_by_username'),
+    path('ads/assigned/<str:assignedUsername>', views.ads_by_assignedUsername_view, name='ads_by_assignedUsername'),
     path('userinfo', views.get_user_info, name='user_info'), 
     path('favorites/add/<int:add_id>/', views.add_to_favorites, name='add_to_favorites'),
     path('favorites/remove/<int:add_id>/', views.remove_from_favorites, name='remove_from_favorites'),

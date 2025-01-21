@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./SubjectAds.css";
 
 // Definicja interfejsu ogłoszenia
@@ -12,6 +12,8 @@ interface Ad {
   learning_mode: string;
   frequency: string;
   start_date: string | null;
+  username: string; // Właściciel ogłoszenia
+  assignedUsername: string | null; // Przypisany użytkownik
 }
 
 const SubjectAds: React.FC = () => {
@@ -19,13 +21,14 @@ const SubjectAds: React.FC = () => {
   const [ads, setAds] = useState<Ad[]>([]); // Wszystkie ogłoszenia
   const [filteredAds, setFilteredAds] = useState<Ad[]>([]); // Ogłoszenia po filtrach
   const [favorites, setFavorites] = useState<number[]>([]); // Lista ID ulubionych ogłoszeń
+  const [userUsername, setUserUsername] = useState<string | null>(null); // Nazwa użytkownika
+  const [confirmationAdId, setConfirmationAdId] = useState<number | null>(null); // ID ogłoszenia do potwierdzenia
   const [filters, setFilters] = useState({
     level: "",
     learning_mode: "",
     frequency: "",
     start_date: "",
   });
-  const navigate = useNavigate();
 
   // Pobieranie ogłoszeń i ulubionych przy załadowaniu komponentu
   useEffect(() => {
@@ -42,14 +45,31 @@ const SubjectAds: React.FC = () => {
           const response = await fetch(url);
           if (response.ok) {
             const data = await response.json();
-            setAds(data);
-            setFilteredAds(data); // Początkowo brak filtrów
+            // Filtrowanie ogłoszeń, aby wyświetlać tylko te z assignedUsername === null
+            const unassignedAds = data.filter((ad: Ad) => ad.assignedUsername === null);
+            setAds(unassignedAds);
+            setFilteredAds(unassignedAds); // Początkowo brak filtrów
           } else {
             console.error("Błąd podczas pobierania ogłoszeń");
           }
         }
       } catch (error) {
         console.error("Błąd połączenia:", error);
+      }
+    };
+
+    const fetchUserDetails = async () => {
+      const token = sessionStorage.getItem("accessToken");
+      try {
+        const response = await fetch("http://localhost:8000/api/userinfo", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUserUsername(data.username);
+        }
+      } catch (error) {
+        console.error("Błąd podczas pobierania danych użytkownika:", error);
       }
     };
 
@@ -73,6 +93,7 @@ const SubjectAds: React.FC = () => {
     };
 
     fetchAds();
+    fetchUserDetails();
     fetchFavoriteIds();
   }, [subject, query]);
 
@@ -95,7 +116,57 @@ const SubjectAds: React.FC = () => {
 
   // Obsługa kliknięcia na ogłoszenie
   const handleAdClick = (adId: number) => {
-    navigate(`/ads/id/${adId}`);
+    const ad = ads.find((ad) => ad.id === adId);
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+      alert("Musisz być zalogowany, aby zgłosić się do ogłoszenia!");
+      return;
+    }
+
+    if (ad?.username === userUsername) {
+      alert("Nie możesz zgłosić się do własnego ogłoszenia!");
+      return;
+    }
+
+    setConfirmationAdId(adId); // Otwórz dialog potwierdzenia
+  };
+
+  // Potwierdzenie zgłoszenia
+  const confirmApplication = async () => {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!confirmationAdId || !userUsername) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/ads/apply/${confirmationAdId}/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ assignedUsername: userUsername }),
+        }
+      );
+
+      if (response.ok) {
+        window.location.reload(); 
+        alert("Zgłoszono się do ogłoszenia!");
+      } else {
+        alert("Nie udało się zgłosić do ogłoszenia.");
+      }
+    } catch (error) {
+      console.error("Błąd podczas zgłoszenia:", error);
+    } finally {
+      setConfirmationAdId(null); // Zamknij dialog
+    }
+  };
+
+  // Anulowanie zgłoszenia
+  const cancelApplication = () => {
+    setConfirmationAdId(null); // Zamknij dialog
   };
 
   // Dodanie/usunięcie ulubionego
@@ -209,7 +280,7 @@ const SubjectAds: React.FC = () => {
                   favorites.includes(ad.id) ? "favorited" : ""
                 }`}
                 onClick={(e) => {
-                  e.stopPropagation(); 
+                  e.stopPropagation();
                   toggleFavorite(ad.id);
                 }}
               >
@@ -219,7 +290,18 @@ const SubjectAds: React.FC = () => {
           ))}
         </div>
       ) : (
-        <p className="no-ads">Brak ogłoszeń spełniających kryteria.</p>
+        <p className="no-ads">Brak dostępnych ogłoszeń.</p>
+      )}
+
+      {/* Dialog potwierdzenia */}
+      {confirmationAdId !== null && (
+        <div className="confirmation-dialog">
+          <div className="confirmation-content">
+            <p>Czy na pewno chcesz się zgłosić do tego ogłoszenia?</p>
+            <button onClick={confirmApplication}>Tak</button>
+            <button onClick={cancelApplication}>Nie</button>
+          </div>
+        </div>
       )}
     </div>
   );
