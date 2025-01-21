@@ -66,7 +66,7 @@ def search_view(request, query):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def ads_by_username_view(request, username):
     ads = Add.objects.filter(username=username)  
     serializer = AddSerializer(ads, many=True)

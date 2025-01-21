@@ -4,9 +4,11 @@
   flex-direction: column;
   align-items: center; /* Wyśrodkuj poziomo */
   justify-content: center; /* Wyśrodkuj pionowo */
-  height: 100vh; /* Wysokość na całą stronę */
+  height: 100vh;
   padding: 20px;
   box-sizing: border-box;
+  background-color: #ced7e4;
+
 
 }
 

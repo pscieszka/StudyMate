@@ -18,19 +18,21 @@ const Account: React.FC = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       const savedUsername = localStorage.getItem("username"); 
-      
+      const token = sessionStorage.getItem("accessToken");
       setUsername(savedUsername); 
 
       if (!savedUsername) {
         setError("You are not logged in or your session has expired.");
         return;
       }
+      console.log(savedUsername);
 
       try {
         const response = await fetch(`http://localhost:8000/api/ads/${savedUsername}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
         });
 
@@ -50,7 +52,7 @@ const Account: React.FC = () => {
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
-      {username && <h2>Your username: {username}</h2>} {/* Wyświetlanie nazwy użytkownika */}
+      {username && <h2>Your username: {username}</h2>}
       <h1>My Tasks</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {tasks.length > 0 ? (

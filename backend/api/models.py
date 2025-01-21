@@ -24,7 +24,7 @@ class Add(models.Model):
     subject = models.CharField(max_length=100)
     description = models.TextField()
     level = models.CharField(max_length=50, blank=True, null=True)
-    learning_mode = models.CharField(max_length=50)
+    learning_mode = models.CharField(max_length=50, blank=True, null=True)
     frequency = models.CharField(max_length=50, blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     username = models.CharField(max_length=150, null=True, blank=True)

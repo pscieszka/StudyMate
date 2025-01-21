@@ -119,8 +119,6 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
             setError("Something went wrong. Please try again.");
         }
     };
-
-
     return (
         <div className="auth-container">
             <div className="auth-box">
@@ -139,32 +137,44 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
                     </button>
                 </div>
                 <form onSubmit={handleSubmit} className="auth-form">
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        className="auth-input"
-                    />
-                    {!isLogin && (
+                    <div className="input-container">
+                        <i className="fa-solid fa-user input-icon"></i>
                         <input
-                            type="email"
-                            name="email"
-                            placeholder="E-mail"
-                            value={formData.email}
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={formData.username}
                             onChange={handleChange}
                             className="auth-input"
+                            required
                         />
+                    </div>
+                    {!isLogin && (
+                        <div className="input-container">
+                            <i className="fa-solid fa-envelope input-icon"></i>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="E-mail"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="auth-input"
+                                required
+                            />
+                        </div>
                     )}
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Hasło"
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="auth-input"
-                    />
+                    <div className="input-container">
+                        <i className="fa-solid fa-lock input-icon"></i>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Hasło"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="auth-input"
+                            required
+                        />
+                    </div>
                     {error && <p className="auth-error">{error}</p>}
                     <button type="submit" className="auth-button">
                         {isLogin ? "Zaloguj się" : "Zarejestruj się"}

@@ -1,82 +1,98 @@
-/* Główne tło */
 .auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #007bff; /* Niebieskie tło */
-  }
-  
-  /* Białe okienko */
-  .auth-box {
-    background-color: white;
+    background-color: #ced7e4;
+}
+.input-container{
+    width: 90%;
+}
+.auth-box {
+    background-color: rgb(255, 255, 255);
     padding: 20px;
     width: 350px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-  }
-  
-  /* Zakładki logowania/rejestracji */
-  .auth-tabs {
+}
+
+.auth-tabs {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-  }
-  
-  .auth-tab {
+}
+
+.auth-tab {
     flex: 1;
     padding: 10px 0;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
     transition: border-color 0.3s;
-  }
-  
-  .auth-tab.active {
-    border-bottom: 2px solid #007bff;
-    color: #007bff;
-  }
-  
-  .auth-tab:hover {
+    border-bottom: 1.5px solid #B2B2B2;
+    color: #B2B2B2;
+    margin-left: 5px;
+    font-weight: 1;
+}
+
+.auth-tab.active {
+    border-bottom: 1.5px solid #1A70B2;
+    color: #1A70B2;
+    font-weight: 1;
+}
+
+.auth-tab:hover {
     color: #0056b3;
-  }
-  
-  /* Formularz logowania/rejestracji */
-  .auth-form {
+}
+
+.auth-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-  
-  .auth-input {
+    align-items: center;
+}
+
+.auth-input {
     padding: 10px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid #1A70B2;
     border-radius: 5px;
     outline: none;
-  }
-  
-  .auth-input:focus {
-    border-color: #007bff;
-  }
-  
-  /* Przycisk */
-  .auth-button {
+    background-color: rgba(26, 112, 178, 0.1);
+    width: 80%;
+}
+
+.auth-input::placeholder {
+    color: rgba(26, 112, 178, 0.5);
+}
+
+.auth-input:focus {
+    border-color: #1A70B2;
+}
+
+.input-icon {
+    color: #1A70B2;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.auth-button {
     padding: 10px;
     font-size: 16px;
     color: white;
-    background-color: #007bff;
+    background-color: #1A70B2;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .auth-button:hover {
+    width: 50%;
+
+}
+
+.auth-button:hover {
     background-color: #0056b3;
-  }
+}
   
