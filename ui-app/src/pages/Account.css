@@ -1,0 +1,22 @@
+.category-button {
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #ced7e4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+  
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .category-button:hover {
+    background-color: #b0c1db;
+    transform: scale(1.05);
+  }
+  
+  .category-button:active {
+    background-color: #9ab0cc;
+    transform: scale(0.95);
+  }
+  

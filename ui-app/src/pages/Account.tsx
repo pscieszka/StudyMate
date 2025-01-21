@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Task {
   id: number;
@@ -14,25 +15,25 @@ const Account: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [error, setError] = useState<string>("");
   const [username, setUsername] = useState<string | null>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const savedUsername = localStorage.getItem("username"); 
+      const savedUsername = localStorage.getItem("username");
       const token = sessionStorage.getItem("accessToken");
-      setUsername(savedUsername); 
+      setUsername(savedUsername);
 
       if (!savedUsername) {
         setError("You are not logged in or your session has expired.");
         return;
       }
-      console.log(savedUsername);
 
       try {
         const response = await fetch(`http://localhost:8000/api/ads/${savedUsername}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -49,6 +50,29 @@ const Account: React.FC = () => {
 
     fetchTasks();
   }, []);
+
+  const handleDelete = async (taskId: number) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/ads/id/${taskId}/delete/`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      });
+
+      if (response.ok) {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+      } else {
+        alert("Failed to delete the task.");
+      }
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    }
+  };
+
+  const handleEdit = (taskId: number) => {
+    navigate(`/ads/id/${taskId}/edit`);
+  };
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
@@ -73,6 +97,16 @@ const Account: React.FC = () => {
               <p>Learning Mode: {task.learning_mode}</p>
               <p>Frequency: {task.frequency}</p>
               <p>Start Date: {task.start_date}</p>
+              <button
+              className="category-button"
+                style={{ marginRight: "10px" }}
+                onClick={() => handleEdit(task.id)}
+              >
+                Edit
+              </button>
+              <button 
+              className="category-button"
+              onClick={() => handleDelete(task.id)}>Delete</button>
             </li>
           ))}
         </ul>

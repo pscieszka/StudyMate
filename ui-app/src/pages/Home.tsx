@@ -36,7 +36,7 @@ const handleSearch = async () => {
 
 
   const handleCategoryClick = (category: string) => {
-    navigate(`/ads/id/${encodeURIComponent(category)}`);
+    navigate(`/ads/${encodeURIComponent(category)}`);
   };
 
   return (

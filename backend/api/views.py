@@ -128,3 +128,37 @@ def apply_to_ad(request, ad_id):
         return Response({"detail": "Użytkownik przypisany do ogłoszenia."}, status=status.HTTP_200_OK)
     except Add.DoesNotExist:
         return Response({"detail": "Ogłoszenie nie istnieje."}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_ad(request, id):
+    try:
+        ad = Add.objects.get(id=id)
+    except Add.DoesNotExist:
+        return Response({"error": "Ogłoszenie nie zostało znalezione"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Sprawdzenie, czy użytkownik jest właścicielem ogłoszenia
+    if ad.username != request.user.username:
+        return Response({"error": "Nie masz uprawnień do edycji tego ogłoszenia."}, status=status.HTTP_403_FORBIDDEN)
+
+    serializer = AddSerializer(ad, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_ad(request, id):
+    try:
+        ad = Add.objects.get(id=id)
+    except Add.DoesNotExist:
+        return Response({"error": "Ogłoszenie nie zostało znalezione"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Sprawdzenie, czy użytkownik jest właścicielem ogłoszenia
+    if ad.username != request.user.username:
+        return Response({"error": "Nie masz uprawnień do usunięcia tego ogłoszenia."}, status=status.HTTP_403_FORBIDDEN)
+
+    ad.delete()
+    return Response({"message": "Ogłoszenie zostało usunięte pomyślnie."}, status=status.HTTP_200_OK)

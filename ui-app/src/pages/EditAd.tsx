@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Add.css";
+
 const EditAd: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
   const [level, setLevel] = useState("");
@@ -11,10 +13,11 @@ const EditAd: React.FC = () => {
   const [frequency, setFrequency] = useState("");
   const [startDate, setStartDate] = useState("");
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchAd = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/ads/${id}/`);
+        const response = await fetch(`http://localhost:8000/api/ads/id/${id}/`);
         if (response.ok) {
           const data = await response.json();
           setSubject(data.subject);
@@ -34,10 +37,13 @@ const EditAd: React.FC = () => {
         navigate("/account");
       }
     };
+
     fetchAd();
   }, [id, navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const token = sessionStorage.getItem("accessToken");
     const updatedAd = {
       subject,
@@ -47,8 +53,9 @@ const EditAd: React.FC = () => {
       frequency,
       start_date: startDate || null,
     };
+
     try {
-      const response = await fetch(`http://localhost:8000/api/ads/${id}/update/`, {
+      const response = await fetch(`http://localhost:8000/api/ads/id/${id}/update/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -56,6 +63,7 @@ const EditAd: React.FC = () => {
         },
         body: JSON.stringify(updatedAd),
       });
+
       if (response.ok) {
         alert("Ad updated successfully.");
         navigate("/account");
@@ -67,9 +75,11 @@ const EditAd: React.FC = () => {
       alert("An error occurred while updating the ad.");
     }
   };
+
   if (loading) {
     return <p>Loading ad details...</p>;
   }
+
   return (
     <div className="add-container">
       <h1 className="add-title">Edit Ad</h1>
@@ -127,12 +137,12 @@ const EditAd: React.FC = () => {
         <div className="form-actions">
           <button
             type="button"
-            className="category-button"
+            className="cancel-button"
             onClick={() => navigate("/account")}
           >
             Cancel
           </button>
-          <button type="submit" className="category-button">
+          <button type="submit" className="submit-button">
             Save
           </button>
         </div>
@@ -140,4 +150,5 @@ const EditAd: React.FC = () => {
     </div>
   );
 };
+
 export default EditAd;
