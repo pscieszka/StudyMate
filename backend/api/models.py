@@ -28,6 +28,7 @@ class Add(models.Model):
     frequency = models.CharField(max_length=50, blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     username = models.CharField(max_length=150, null=True, blank=True)
+    assignedUsername = models.CharField(max_length=150, null=True, blank=True, default=None)
 
     def __str__(self):
         return self.subject

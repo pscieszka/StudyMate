@@ -110,3 +110,21 @@ def get_ad_details(request, id):
 
     serializer = AddSerializer(ad)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def apply_to_ad(request, ad_id):
+    try:
+        ad = Add.objects.get(id=ad_id)
+        if ad.assignedUsername is not None:
+            return Response(
+                {"detail": "Ogłoszenie już ma przypisanego użytkownika."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = request.user.username
+        ad.assignedUsername = user
+        ad.save()
+
+        return Response({"detail": "Użytkownik przypisany do ogłoszenia."}, status=status.HTTP_200_OK)
+    except Add.DoesNotExist:
+        return Response({"detail": "Ogłoszenie nie istnieje."}, status=status.HTTP_404_NOT_FOUND)
