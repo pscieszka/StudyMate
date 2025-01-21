@@ -46,7 +46,7 @@ const Favorites: React.FC = () => {
       const token = sessionStorage.getItem("accessToken");
       try {
         const promises = favoriteIds.map((id) =>
-          fetch(`http://localhost:8000/api/ads/${id}/`, {
+          fetch(`http://localhost:8000/api/ads/id/${id}/`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

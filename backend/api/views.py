@@ -162,9 +162,30 @@ def delete_ad(request, id):
 
     ad.delete()
     return Response({"message": "Ogłoszenie zostało usunięte pomyślnie."}, status=status.HTTP_200_OK)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def ads_by_assignedUsername_view(request, assignedUsername):
     ads = Add.objects.filter(assignedUsername=assignedUsername)  
     serializer = AddSerializer(ads, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_assignment(request, add_id):
+    try:
+        ad = Add.objects.get(id=add_id)
+        if ad.assignedUsername != request.user.username:
+            return Response(
+                {"detail": "You are not allowed to unassign this ad."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        ad.assignedUsername = None
+        ad.save()
+        return Response(
+            {"detail": "Assignment deleted successfully."},
+            status=status.HTTP_200_OK,
+        )
+    except Add.DoesNotExist:
+        return Response({"detail": "Ad not found."}, status=status.HTTP_404_NOT_FOUND)
+
