@@ -95,7 +95,7 @@ const SubjectAds: React.FC = () => {
 
   // Obsługa kliknięcia na ogłoszenie
   const handleAdClick = (adId: number) => {
-    navigate(`/ads/${adId}`);
+    navigate(`/ads/id/${adId}`);
   };
 
   // Dodanie/usunięcie ulubionego

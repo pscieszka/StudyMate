@@ -9,6 +9,7 @@ import SubjectAds from "./pages/SubjectAds";
 import LoginRegister from "./pages/LoginRegister";
 import PrivateRoute from "./components/PrivateRoute";
 import Favorites from "./pages/Favorites";
+import AdDetail from "./pages/AdDetail";
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
@@ -52,6 +53,7 @@ function App() {
                         </PrivateRoute>
                     }
                 />
+                <Route path="/ads/id/:id/" element={<AdDetail />} />
                 <Route path="/ads/:subject" element={<SubjectAds/>}/>
                 <Route path="/search/:query" element={<SubjectAds/>}/>
                 <Route path="/" element={<Home/>}/>
