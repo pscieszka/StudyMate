@@ -24,7 +24,7 @@ const handleSearch = async () => {
     if (response.ok) {
       const data = await response.json();
       console.log("Wyniki wyszukiwania:", data);
-      navigate(`/search/${encodeURIComponent(searchQuery)}`); // Przenosimy do wyników wyszukiwania
+      navigate(`/search/${encodeURIComponent(searchQuery)}`); 
     } else {
       alert("Wystąpił błąd podczas wyszukiwania.");
     }
@@ -41,7 +41,6 @@ const handleSearch = async () => {
 
   return (
     <div className="search-container">
-      {/* Pasek wyszukiwania */}
       <div className="search-bar">
         <input
           type="text"
@@ -52,7 +51,6 @@ const handleSearch = async () => {
         <button onClick={handleSearch}>Search</button>
       </div>
 
-      {/* Lista kategorii jako przyciski */}
       <div className="categories">
         {categories.map((category, index) => (
           <button

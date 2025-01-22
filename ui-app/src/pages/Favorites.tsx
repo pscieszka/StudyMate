@@ -29,7 +29,7 @@ const Favorites: React.FC = () => {
         });
         if (response.ok) {
           const ids = await response.json();
-          setFavoriteIds(ids); // Zapisz tylko ID ulubionych ogłoszeń
+          setFavoriteIds(ids);
         } else {
           console.error("Błąd podczas pobierania ulubionych ID");
         }
@@ -54,7 +54,7 @@ const Favorites: React.FC = () => {
         );
 
         const favoriteDetails = await Promise.all(promises);
-        setFavorites(favoriteDetails); // Zapisz szczegóły ulubionych ogłoszeń
+        setFavorites(favoriteDetails); 
       } catch (error) {
         console.error("Błąd podczas pobierania szczegółów ogłoszeń:", error);
       }
@@ -65,7 +65,6 @@ const Favorites: React.FC = () => {
     }
   }, [favoriteIds]);
 
-  // Kliknięcie ogłoszenia przenosi do szczegółów
   const handleAdClick = (adId: number) => {
     navigate(`/ads/${adId}`);
   };

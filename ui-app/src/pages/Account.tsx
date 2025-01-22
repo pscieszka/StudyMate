@@ -9,14 +9,14 @@ interface Task {
   learning_mode: string;
   frequency: string;
   start_date: string;
-  assignedUsername: string | null; // Dodane pole
+  assignedUsername: string | null;
 }
 
 const Account: React.FC = () => {
-  const [myAds, setMyAds] = useState<Task[]>([]); // Moje ogłoszenia
-  const [assignedAds, setAssignedAds] = useState<Task[]>([]); // Przypisane ogłoszenia
-  const [error, setError] = useState<string>(""); // Komunikaty błędów
-  const [username, setUsername] = useState<string | null>(""); // Nazwa użytkownika
+  const [myAds, setMyAds] = useState<Task[]>([]);
+  const [assignedAds, setAssignedAds] = useState<Task[]>([]);
+  const [error, setError] = useState<string>("");
+  const [username, setUsername] = useState<string | null>(""); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const Account: React.FC = () => {
       }
 
       try {
-        // Pobranie ogłoszeń użytkownika
+
         const userAdsResponse = await fetch(
           `http://localhost:8000/api/ads/${savedUsername}`,
           {
@@ -50,7 +50,6 @@ const Account: React.FC = () => {
           setError("Failed to fetch your ads. Please check your login status.");
         }
 
-        // Pobranie ogłoszeń przypisanych użytkownikowi
         const assignedAdsResponse = await fetch(
           `http://localhost:8000/api/ads/assigned/${savedUsername}`,
           {
@@ -114,7 +113,7 @@ const Account: React.FC = () => {
 
       if (response.ok) {
         alert("Unassigned successfully.");
-        setAssignedAds((prevAds) => prevAds.filter((ad) => ad.id !== taskId)); // Usuń ogłoszenie z listy przypisanych
+        setAssignedAds((prevAds) => prevAds.filter((ad) => ad.id !== taskId));
       } else {
         alert("Failed to unassign the ad.");
       }
@@ -129,7 +128,6 @@ const Account: React.FC = () => {
 
   return (
     <div style={{ display: "flex", padding: "20px", gap: "20px" }}>
-      {/* Moje ogłoszenia */}
       <div
         style={{
           flex: 1,
@@ -184,7 +182,6 @@ const Account: React.FC = () => {
         )}
       </div>
 
-      {/* Ogłoszenia przypisane użytkownikowi */}
       <div style={{ flex: 1, textAlign: "center", paddingLeft: "20px" }}>
         <h1>Assigned Ads</h1>
         {assignedAds.length > 0 ? (

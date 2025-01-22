@@ -30,7 +30,7 @@
 
 .form-group {
   margin-bottom: 15px;
-  width: 100%; /* Ustawiamy szerokość dla każdego elementu w formularzu */
+  width: 100%;
 }
 
 .form-group label {
@@ -62,7 +62,7 @@
 }
 
 .form-row .form-group {
-  flex: 1; /* Sprawia, że wszystkie grupy w wierszu będą miały równą szerokość */
+  flex: 1;
 }
 
 .form-actions {

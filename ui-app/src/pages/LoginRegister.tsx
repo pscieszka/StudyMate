@@ -115,7 +115,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
                 return;
             }
         } catch (err) {
-            console.error("Error during fetch:", err); // Logowanie błędu
+            console.error("Error during fetch:", err); 
             setError("Something went wrong. Please try again.");
         }
     };

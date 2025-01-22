@@ -137,7 +137,6 @@ def update_ad(request, id):
     except Add.DoesNotExist:
         return Response({"error": "Ogłoszenie nie zostało znalezione"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Sprawdzenie, czy użytkownik jest właścicielem ogłoszenia
     if ad.username != request.user.username:
         return Response({"error": "Nie masz uprawnień do edycji tego ogłoszenia."}, status=status.HTTP_403_FORBIDDEN)
 
@@ -156,7 +155,6 @@ def delete_ad(request, id):
     except Add.DoesNotExist:
         return Response({"error": "Ogłoszenie nie zostało znalezione"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Sprawdzenie, czy użytkownik jest właścicielem ogłoszenia
     if ad.username != request.user.username:
         return Response({"error": "Nie masz uprawnień do usunięcia tego ogłoszenia."}, status=status.HTTP_403_FORBIDDEN)
 

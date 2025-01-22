@@ -81,7 +81,6 @@ const Add: React.FC = () => {
                                 required
                         >
                             <option value="">Wybierz poziom</option>
-                            {/* Dodana opcja pusta */}
                             <option>Liceum</option>
                             <option>Studia</option>
                             <option>Podstawówka</option>
@@ -119,7 +118,6 @@ const Add: React.FC = () => {
                             onChange={(e) => setFrequency(e.target.value)}
                         >
                             <option value="">Wybierz częstotliwość</option>
-                            {/* Dodana opcja pusta */}
                             <option>Raz w tygodniu</option>
                             <option>Dwa razy w tygodniu</option>
                             <option>Codziennie</option>
