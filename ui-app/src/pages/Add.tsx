@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./Add.css";
 
 const Add: React.FC = () => {
-    const [subject, setSubject] = useState("Matematyka");
+    const [subject, setSubject] = useState("Mathematics");
     const [description, setDescription] = useState("");
     const [level, setLevel] = useState("");
     const [learningMode, setLearningMode] = useState("");
@@ -37,98 +37,99 @@ const Add: React.FC = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                alert("Ogłoszenie zostało dodane pomyślnie!");
+                alert("The advertisement has been added successfully!");
                 console.log(data);
             } else {
                 const errorData = await response.json();
                 console.error("Błąd:", errorData);
-                alert("Wystąpił błąd przy dodawaniu ogłoszenia.");
+                alert("An error occurred while adding the advertisement.");
             }
         } catch (error) {
-            console.error("Błąd połączenia:", error);
-            alert("Nie udało się połączyć z serwerem.");
+            console.error("Connection error:", error);
+            alert("Failed to connect to the server.");
         }
     };
 
     return (
         <div className="add-container">
             <form className="add-form" onSubmit={handleSubmit}>
-                <h1 className="add-title">Dodaj ogłoszenie</h1>
+                <h1 className="add-title">Add Advertisement</h1>
 
                 <div className="form-row">
                     <div className="form-group">
-                        <label>Przedmiot / Temat nauki *</label>
+                        <label>Subject / Topic *</label>
                         <select
                             value={subject}
                             onChange={(e) => setSubject(e.target.value)}
                             required
                         >
-                            <option>Matematyka</option>
-                            <option>Fizyka</option>
-                            <option>Chemia</option>
-                            <option>Biologia</option>
-                            <option>Język angielski</option>
-                            <option>Język hiszpański</option>
-                            <option>Język polski</option>
-                            <option>Historia</option>
+                            <option>Mathematics</option>
+                            <option>Physics</option>
+                            <option>Computer Science</option>
+                            <option>English</option>
+                            <option>History</option>
+                            <option>Biology</option>
+                            <option>Chemistry</option>
+                            <option>Geography</option>
+                            <option>Civic Education</option>
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Poziom nauki * </label>
+                        <label>Level of Study *</label>
                         <select value={level}
                                 onChange={(e) => setLevel(e.target.value)}
                                 required
                         >
-                            <option value="">Wybierz poziom</option>
-                            <option>Liceum</option>
-                            <option>Studia</option>
-                            <option>Podstawówka</option>
+                            <option value="">Select level</option>
+                            <option>High School</option>
+                            <option>University</option>
+                            <option>Primary School</option>
                         </select>
                     </div>
                 </div>
 
                 <div className="form-group">
-                    <label>Opis ogłoszenia *</label>
+                    <label>Advertisement Description *</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Napisz coś"
+                        placeholder="Write something"
                         required
                     />
                 </div>
 
                 <div className="form-row">
                     <div className="form-group">
-                        <label>Forma nauki </label>
+                        <label>Learning Mode </label>
                         <select
                             value={learningMode}
                             onChange={(e) => setLearningMode(e.target.value)}
                         >
-                            <option value="">Wybierz formę</option>
-                            <option>Spotkania na żywo</option>
+                            <option value="">Select mode</option>
+                            <option>In-person meetings</option>
                             <option>Online</option>
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Częstotliwość spotkań </label>
+                        <label>Meeting Frequency </label>
                         <select
                             value={frequency}
                             onChange={(e) => setFrequency(e.target.value)}
                         >
-                            <option value="">Wybierz częstotliwość</option>
-                            <option>Raz w tygodniu</option>
-                            <option>Dwa razy w tygodniu</option>
-                            <option>Codziennie</option>
-                            <option>Raz w miesiącu</option>
-                            <option>Raz na dwa tygodnie</option>
+                            <option value="">Select frequency</option>
+                            <option>Once a week</option>
+                            <option>Twice a week</option>
+                            <option>Daily</option>
+                            <option>Once a month</option>
+                            <option>Every two weeks</option>
                         </select>
                     </div>
                 </div>
 
                 <div className="form-group">
-                    <label>Data rozpoczęcia nauki </label>
+                    <label>Start Date </label>
                     <input
                         type="date"
                         value={startDate}
@@ -136,13 +137,13 @@ const Add: React.FC = () => {
                     />
                 </div>
 
-                <label>* - wymagane </label>
+                <label>* - required </label>
                 <div className="form-actions">
                     <button type="button" className="cancel-button">
-                        Anuluj
+                        Cancel
                     </button>
                     <button type="submit" className="submit-button">
-                        Opublikuj
+                        Publish
                     </button>
                 </div>
             </form>

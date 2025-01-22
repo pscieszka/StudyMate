@@ -1,23 +1,24 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginRegister.css";
 
 interface LoginRegisterProps {
     setIsAuthenticated: (value: boolean) => void;
 }
 
-const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
+const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
         password: "",
+        confirmPassword: "", // New field for confirming password
     });
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const fetchUserInfo = async () => {
@@ -52,22 +53,29 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
         e.preventDefault();
         setError("");
 
-        if (!isLogin && formData.password.length < 8) {
-            setError("Hasło musi mieć co najmniej 8 znaków.");
-            return;
+        if (!isLogin) {
+            if (formData.password.length < 8) {
+                setError("Password must be at least 8 characters long.");
+                return;
+            }
+            if (formData.password !== formData.confirmPassword) {
+                setError("Passwords do not match.");
+                return;
+            }
         }
+
         const endpoint = isLogin
             ? "http://localhost:8000/api/login"
             : "http://localhost:8000/api/register";
 
         const body = isLogin
-            ? {username: formData.username, password: formData.password}
-            : {username: formData.username, email: formData.email, password: formData.password};
+            ? { username: formData.username, password: formData.password }
+            : { username: formData.username, email: formData.email, password: formData.password };
 
         try {
             const response = await fetch(endpoint, {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             });
             if (response.ok) {
@@ -119,6 +127,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
             setError("Something went wrong. Please try again.");
         }
     };
+
     return (
         <div className="auth-container">
             <div className="auth-box">
@@ -127,13 +136,13 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
                         className={`auth-tab ${isLogin ? "active" : ""}`}
                         onClick={() => setIsLogin(true)}
                     >
-                        Zaloguj się
+                        Log in
                     </button>
                     <button
                         className={`auth-tab ${!isLogin ? "active" : ""}`}
                         onClick={() => setIsLogin(false)}
                     >
-                        Załóż konto
+                        Register
                     </button>
                 </div>
                 <form onSubmit={handleSubmit} className="auth-form">
@@ -150,25 +159,39 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
                         />
                     </div>
                     {!isLogin && (
-                        <div className="input-container">
-                            <i className="fa-solid fa-envelope input-icon"></i>
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="E-mail"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="auth-input"
-                                required
-                            />
-                        </div>
+                        <>
+                            <div className="input-container">
+                                <i className="fa-solid fa-envelope input-icon"></i>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="E-mail"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="auth-input"
+                                    required
+                                />
+                            </div>
+                            <div className="input-container">
+                                <i className="fa-solid fa-lock input-icon"></i>
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    className="auth-input"
+                                    required
+                                />
+                            </div>
+                        </>
                     )}
                     <div className="input-container">
                         <i className="fa-solid fa-lock input-icon"></i>
                         <input
                             type="password"
                             name="password"
-                            placeholder="Hasło"
+                            placeholder="Password"
                             value={formData.password}
                             onChange={handleChange}
                             className="auth-input"
@@ -177,7 +200,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({setIsAuthenticated}) => {
                     </div>
                     {error && <p className="auth-error">{error}</p>}
                     <button type="submit" className="auth-button">
-                        {isLogin ? "Zaloguj się" : "Zarejestruj się"}
+                        {isLogin ? "Log in" : "Register"}
                     </button>
                 </form>
             </div>

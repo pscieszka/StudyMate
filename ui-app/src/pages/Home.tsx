@@ -7,15 +7,15 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
 
   const categories = [
-    "Matematyka",
-    "Fizyka",
-    "Informatyka",
-    "Język polski",
-    "Historia",
-    "Biologia",
-    "Chemia",
-    "Geografia",
-    "WOS",
+    "Mathematics",
+    "Physics",
+    "Computer Science",
+    "English",
+    "History",
+    "Biology",
+    "Chemistry",
+    "Geography",
+    "Civic Education",
   ];
 
 const handleSearch = async () => {
@@ -23,14 +23,14 @@ const handleSearch = async () => {
     const response = await fetch(`http://localhost:8000/api/search/${encodeURIComponent(searchQuery)}/`);
     if (response.ok) {
       const data = await response.json();
-      console.log("Wyniki wyszukiwania:", data);
-      navigate(`/search/${encodeURIComponent(searchQuery)}`); 
+      console.log("Search results:", data);
+      navigate(`/search/${encodeURIComponent(searchQuery)}`); // Przenosimy do wyników wyszukiwania
     } else {
-      alert("Wystąpił błąd podczas wyszukiwania.");
+      alert("An error occurred during the search.");
     }
   } catch (error) {
-    console.error("Błąd połączenia:", error);
-    alert("Nie udało się połączyć z serwerem.");
+    console.error("Connection erro:", error);
+    alert("Failed to connect to the server.");
   }
 };
 
