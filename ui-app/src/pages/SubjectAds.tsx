@@ -80,7 +80,7 @@ const SubjectAds: React.FC = () => {
                 });
                 if (response.ok) {
                     const favoriteIds = await response.json();
-                    setFavorites(favoriteIds); // Ustaw listę ulubionych ogłoszeń
+                    setFavorites(favoriteIds);
                 } else {
                     console.error("Error fetching favorites.");
                 }
@@ -329,7 +329,7 @@ const SubjectAds: React.FC = () => {
             {confirmationAdId !== null && (
                 <div className="confirmation-dialog">
                     <div className="confirmation-content">
-                        <p>Are you sure you want to apply for this ad?</p>
+                        <p className="confirmation-message">Are you sure you want to apply for this ad?</p>
                         <button onClick={confirmApplication}>Yes</button>
                         <button onClick={cancelApplication}>No</button>
                     </div>
