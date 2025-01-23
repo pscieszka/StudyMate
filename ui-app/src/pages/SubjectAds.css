@@ -133,6 +133,15 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+.apply-button:hover {
+  background-color: #1A70B2 !important;
+   transform: scale(1.05);
+}
+
+.apply-button:active {
+  background-color: #9ab0cc !important;
+  transform: scale(0.95);
+}
 .ad-title {
     font-size: 20px;
     font-weight: 700;
@@ -173,7 +182,7 @@
 }
 
 .favorite-button.favorited {
-    color: red;
+    color: #bc2323;
 }
 
 .confirmation-dialog {

@@ -80,75 +80,103 @@ const EditAd: React.FC = () => {
     return <p>Loading ad details...</p>;
   }
 
-  return (
-    <div className="add-container">
-      <h1 className="add-title">Edit Ad</h1>
-      <form className="add-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Subject</label>
-          <input
-            type="text"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-          />
+    return (
+        <div className="add-container">
+            <form className="add-form" onSubmit={handleSubmit}>
+                <h1 className="add-title">Add Advertisement</h1>
+
+                <div className="form-row">
+                    <div className="form-group">
+                        <label>Subject / Topic *</label>
+                        <select
+                            value={subject}
+                            onChange={(e) => setSubject(e.target.value)}
+                            required
+                        >
+                            <option>Mathematics</option>
+                            <option>Physics</option>
+                            <option>Computer Science</option>
+                            <option>English</option>
+                            <option>History</option>
+                            <option>Biology</option>
+                            <option>Chemistry</option>
+                            <option>Geography</option>
+                            <option>Civic Education</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Level of Study *</label>
+                        <select value={level}
+                                onChange={(e) => setLevel(e.target.value)}
+                                required
+                        >
+                            <option value="">Select level</option>
+                            <option>High School</option>
+                            <option>University</option>
+                            <option>Primary School</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label>Advertisement Description *</label>
+                    <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="Write something"
+                        required
+                    />
+                </div>
+
+                <div className="form-row">
+                    <div className="form-group">
+                        <label>Learning Mode </label>
+                        <select
+                            value={learningMode}
+                            onChange={(e) => setLearningMode(e.target.value)}
+                        >
+                            <option value="">Select mode</option>
+                            <option>In-person meetings</option>
+                            <option>Online</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Meeting Frequency </label>
+                        <select
+                            value={frequency}
+                            onChange={(e) => setFrequency(e.target.value)}
+                        >
+                            <option value="">Select frequency</option>
+                            <option>Once a week</option>
+                            <option>Twice a week</option>
+                            <option>Daily</option>
+                            <option>Once a month</option>
+                            <option>Every two weeks</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label>Start Date </label>
+                    <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                </div>
+
+                <label>* - required </label>
+                <div className="form-actions">
+                    <button type="submit" className="submit-button">
+                        Publish
+                    </button>
+                </div>
+            </form>
         </div>
-        <div className="form-group">
-          <label>Description</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Level</label>
-          <input
-            type="text"
-            value={level}
-            onChange={(e) => setLevel(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Learning Mode</label>
-          <input
-            type="text"
-            value={learningMode}
-            onChange={(e) => setLearningMode(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Frequency</label>
-          <input
-            type="text"
-            value={frequency}
-            onChange={(e) => setFrequency(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Start Date</label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </div>
-        <div className="form-actions">
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={() => navigate("/account")}
-          >
-            Cancel
-          </button>
-          <button type="submit" className="submit-button">
-            Save
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+    );
 };
+
 
 export default EditAd;

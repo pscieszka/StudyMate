@@ -41,7 +41,7 @@ const Add: React.FC = () => {
                 console.log(data);
             } else {
                 const errorData = await response.json();
-                console.error("Błąd:", errorData);
+                console.error("Error:", errorData);
                 alert("An error occurred while adding the advertisement.");
             }
         } catch (error) {
@@ -139,9 +139,6 @@ const Add: React.FC = () => {
 
                 <label>* - required </label>
                 <div className="form-actions">
-                    <button type="button" className="cancel-button">
-                        Cancel
-                    </button>
                     <button type="submit" className="submit-button">
                         Publish
                     </button>

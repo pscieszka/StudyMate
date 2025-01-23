@@ -11,7 +11,8 @@
 .auth-box {
     background-color: rgb(255, 255, 255);
     padding: 20px;
-    width: 350px;
+    width: 30%;
+    height: 60%;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -29,7 +30,7 @@
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     transition: border-color 0.3s;
     border-bottom: 1.5px solid #B2B2B2;
@@ -51,13 +52,15 @@
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
+    justify-content: center;
+    height: 80%;
 }
 
 .auth-input {
     padding: 10px;
-    font-size: 14px;
+    font-size: 18px;
     border: 1px solid #1A70B2;
     border-radius: 5px;
     outline: none;
@@ -75,13 +78,14 @@
 
 .input-icon {
     color: #1A70B2;
-    font-size: 18px;
+    font-size: 24px;
     margin-right: 10px;
 }
 
 .auth-button {
+    margin-top : 20px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 18px;
     color: white;
     background-color: #1A70B2;
     border: none;

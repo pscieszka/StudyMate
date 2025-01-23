@@ -1,19 +1,19 @@
 .favorites-container {
-        display: flex;
+    display: flex;
     flex-direction: column;
     background-color: #f4f7f9;
     min-height: 100vh;
     box-sizing: border-box;
     width: 100%;
-  }
-  
-  .favorites-title {
+}
+
+.favorites-title {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
-  }
-  
-  .favorites-grid {
+}
+
+.favorites-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
@@ -21,33 +21,34 @@
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
-  }
-  
-  .favorite-card {
+}
+
+.favorite-card {
     background: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .favorite-card:hover {
+}
+
+.favorite-card:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .favorite-title {
+}
+
+.favorite-title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
-  }
-  
-  .no-favorites {
+}
+
+.no-favorites {
     text-align: center;
     font-size: 18px;
     color: #888;
-  }
+}
+
 .ad-card {
     width: 100%;
     display: grid;
@@ -61,6 +62,7 @@
     cursor: pointer;
     text-align: left;
 }
+
 .avatar-container,
 .right-container,
 .left-container,
@@ -75,19 +77,22 @@
 }
 
 .right-container,
-.left-container{
-    font-size : 18px;
+.left-container {
+    font-size: 18px;
 }
+
 .right-container,
-.button-container{
+.button-container {
     border-left: 1px solid #2e2424;
     padding-left: 15px
 }
-.avatar-container{
-    width : 150px;
+
+.avatar-container {
+    width: 150px;
     height: 150px;
 }
-  .fav-button-container {
+
+.fav-button-container {
     position: absolute;
     top: 0;
     right: 0;
@@ -96,12 +101,14 @@
     align-items: center;
     justify-content: center;
 }
-  .ad-title {
+
+.ad-title {
     font-size: 20px;
     font-weight: 700;
     color: #68c5cc;
     margin-bottom: 12px;
 }
+
 .ad-description {
     font-size: 16px;
     color: #555;
@@ -112,6 +119,7 @@
 .ad-card p {
     margin: 5px 0;
 }
+
 .favorites-container .input-icon {
     font-size: 100px;
     color: #1A70B2;
@@ -119,4 +127,29 @@
     margin-left: 10px;
     vertical-align: middle;
 
+}
+.apply-button{
+      background-color: #1A70B2;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #1A70B2;
+  border-radius: 8px;
+  cursor: pointer;
+    width: 80%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.apply-button:hover {
+  background-color: #1A70B2 !important;
+   transform: scale(1.05);
+}
+
+.apply-button:active {
+  background-color: #9ab0cc !important;
+  transform: scale(0.95);
+}
+
+.apply-button:focus {
+  outline: none;
 }

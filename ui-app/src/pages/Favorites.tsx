@@ -60,7 +60,6 @@ const Favorites: React.FC = () => {
         fetchUserDetails();
     }, []);
 
-    // Pobranie szczegółów ogłoszeń na podstawie ich ID
     useEffect(() => {
         const fetchFavoriteDetails = async () => {
             const token = sessionStorage.getItem("accessToken");
@@ -85,7 +84,6 @@ const Favorites: React.FC = () => {
         }
     }, [favorites]);
 
-    // Funkcja obsługująca kliknięcie na ogłoszenie
     const handleAdClick = (adId: number) => {
         const ad = ads.find((ad) => ad.id === adId);
         const token = sessionStorage.getItem("accessToken");
@@ -103,7 +101,6 @@ const Favorites: React.FC = () => {
         setConfirmationAdId(adId);
     };
 
-    // Potwierdzenie aplikacji na ogłoszenie
     const confirmApplication = async () => {
         const token = sessionStorage.getItem("accessToken");
 
@@ -135,12 +132,10 @@ const Favorites: React.FC = () => {
         }
     };
 
-    // Anulowanie aplikacji
     const cancelApplication = () => {
         setConfirmationAdId(null);
     };
 
-    // Zmiana statusu ulubionych ogłoszeń
     const toggleFavorite = async (adId: number) => {
         const isFavorite = favorites.includes(adId);
         const token = sessionStorage.getItem("accessToken");

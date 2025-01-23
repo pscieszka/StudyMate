@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center; 
-  justify-content: center; 
+
   height: 100vh;
   padding: 20px;
   box-sizing: border-box;
@@ -14,8 +14,7 @@
 .search-bar {
   display: flex;
   align-items: center;
-  width: 100%; 
-  max-width: 600px; 
+  width: 55%;
   background-color: #ffffff; 
   border: 1px solid #e5e5e5; 
   border-radius: 5px;
@@ -23,6 +22,7 @@
   padding: 10px;
   gap: 10px;
   margin-bottom: 40px;
+  margin-top : 50px;
 }
 
 .search-bar input {
@@ -34,7 +34,6 @@
 }
 
 .search-bar button {
-  font-family: Roboto;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 600;
@@ -54,8 +53,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  width: 100%;
-  max-width: 600px;
+  width: 50%;
+  height: 35%;
   padding: 40px;
   border-radius: 10px;
   background-color: #ffffff;

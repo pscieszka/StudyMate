@@ -163,9 +163,14 @@ const SubjectAds: React.FC = () => {
     };
 
     const toggleFavorite = async (adId: number) => {
-        const isFavorite = favorites.includes(adId);
         const token = sessionStorage.getItem("accessToken");
 
+        if (!token) {
+            alert("You must be logged in to add ads to your favorites!");
+            return;
+        }
+
+        const isFavorite = favorites.includes(adId);
         try {
             const response = await fetch(
                 `http://localhost:8000/api/favorites/${isFavorite ? "remove" : "add"}/${adId}/`,
