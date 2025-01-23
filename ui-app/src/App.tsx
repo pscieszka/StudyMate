@@ -11,6 +11,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import Favorites from "./pages/Favorites";
 import AdDetail from "./pages/AdDetail";
 import EditAd from "./pages/EditAd";
+import SwaggerDocumentation from "./pages/SwaggerUI";
+
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
@@ -26,6 +28,7 @@ function App() {
     };
 
     return (
+
         <Router>
             <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout}/>
             <Routes>
@@ -68,6 +71,7 @@ function App() {
                     path="/register"
                     element={<LoginRegister setIsAuthenticated={setIsAuthenticated}/>}
                 />
+                <Route path="/docs" element={<SwaggerDocumentation />} />
             </Routes>
         </Router>
     );
