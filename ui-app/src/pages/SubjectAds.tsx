@@ -65,6 +65,7 @@ const SubjectAds: React.FC = () => {
                     const data = await response.json();
                     setUserUsername(data.username);
                 }
+
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }

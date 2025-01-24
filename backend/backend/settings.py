@@ -43,9 +43,25 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'api',
     'corsheaders',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
-
 AUTH_USER_MODEL = 'api.SystemUser'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'  # Albo inna nazwa pola, jeśli je zmieniłeś
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Albo tylko 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+
+LOGIN_REDIRECT_URL = '/api/home'
+LOGOUT_REDIRECT_URL = '/api/login'
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -63,26 +79,45 @@ SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'openid',
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+        'CLIENT_CLASS': 'allauth.socialaccount.providers.oauth2.client.OAuth2Client',
+    }
+}
+SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
+    'allauth.account.middleware.AccountMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOW_ALL_ORIGINS = True
+ORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
     "http://localhost:8080",
 ]
-
 CORS_ALLOW_METHODS = [
     'DELETE', 'GET', 'OPTIONS', 'POST', 'PUT', 'PATCH',
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+SECURE_CROSS_ORIGIN_EMBEDDER_POLICY = 'require-corp'
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 ROOT_URLCONF = 'backend.urls'
 

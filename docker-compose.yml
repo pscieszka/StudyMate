@@ -9,10 +9,14 @@ services:
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
+      - /etc/timezone:/etc/timezone:ro  # Opcjonalnie, jeśli chcesz użyć lokalnej strefy czasowej
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "8000:8000"
     depends_on:
      - postgres
+    environment:
+      - TZ=Europe/Warsaw
 
 
   ui-app:
@@ -23,6 +27,7 @@ services:
       - backend
     environment:
       - REACT_APP_BACKEND_URL=http://localhost:8000/api
+      - TZ=Europe/Warsaw
 
 
   postgres:
@@ -42,6 +47,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
+      TZ: Europe/Warsaw
     ports:
       - "5050:80"
     depends_on:

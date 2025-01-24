@@ -7,6 +7,7 @@
     "font-awesome": "^4.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-google-login": "^5.2.2",
     "react-router-dom": "^7.0.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui": "^5.18.2",

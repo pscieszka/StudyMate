@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin,CredentialResponse } from "@react-oauth/google";  // Używamy GoogleLogin i importujemy GoogleLoginResponse
 import "./LoginRegister.css";
 
 interface LoginRegisterProps {
@@ -12,7 +13,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
         username: "",
         email: "",
         password: "",
-        confirmPassword: "", // New field for confirming password
+        confirmPassword: "",
     });
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -123,11 +124,45 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
                 return;
             }
         } catch (err) {
-            console.error("Error during fetch:", err); 
+            console.error("Error during fetch:", err);
             setError("Something went wrong. Please try again.");
         }
     };
 
+const handleGoogleLogin = async (response: CredentialResponse) => {
+    console.log(response);
+    if (response.credential) {
+        const token = response.credential;
+        console.log("Token sent to backend:", token);
+
+        try {
+            const res = await fetch('http://localhost:8000/api/oauth/callback/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                sessionStorage.setItem('accessToken', data.access);
+                sessionStorage.setItem('refreshToken', data.refresh);
+                await fetchUserInfo();
+                setIsAuthenticated(true);
+                navigate('/');
+            } else {
+                alert('Google login failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Something went wrong during Google login.');
+        }
+    } else {
+        console.error('Google login response does not contain a credential.');
+    }
+};
     return (
         <div className="auth-container">
             <div className="auth-box">
@@ -202,6 +237,12 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
                     <button type="submit" className="auth-button">
                         {isLogin ? "Log in" : "Register"}
                     </button>
+                    <div className="google-login-container">
+                        <GoogleLogin
+                            onSuccess={handleGoogleLogin}
+                            onError={() => setError("Google login failed. Please try again.")}
+                        />
+                    </div>
                 </form>
             </div>
         </div>

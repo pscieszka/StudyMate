@@ -9,21 +9,22 @@
     width: 90%;
 }
 .auth-box {
+    display: flex;
+    flex-direction: column;
     background-color: rgb(255, 255, 255);
     padding: 20px;
     width: 30%;
-    height: 60%;
+    height: 70%;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    justify-content: center;
 }
-
 .auth-tabs {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
-
 .auth-tab {
     flex: 1;
     padding: 10px 0;
@@ -38,17 +39,14 @@
     margin-left: 5px;
     font-weight: 1;
 }
-
 .auth-tab.active {
     border-bottom: 1.5px solid #1A70B2;
     color: #1A70B2;
     font-weight: 1;
 }
-
 .auth-tab:hover {
     color: #0056b3;
 }
-
 .auth-form {
     display: flex;
     flex-direction: column;
@@ -57,7 +55,6 @@
     justify-content: center;
     height: 80%;
 }
-
 .auth-input {
     padding: 10px;
     font-size: 18px;
@@ -67,23 +64,19 @@
     background-color: rgba(26, 112, 178, 0.1);
     width: 80%;
 }
-
 .auth-input::placeholder {
     color: rgba(26, 112, 178, 0.5);
 }
-
 .auth-input:focus {
     border-color: #1A70B2;
 }
-
 .input-icon {
     color: #1A70B2;
     font-size: 24px;
     margin-right: 10px;
 }
-
 .auth-button {
-    margin-top : 20px;
+    margin-top : 10px;
     padding: 10px;
     font-size: 18px;
     color: white;
@@ -95,8 +88,13 @@
     width: 50%;
 
 }
-
 .auth-button:hover {
     background-color: #0056b3;
 }
-  
+.google-login-container {
+    background-color: #ffffff;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -2,13 +2,15 @@ django==4.2
 djangorestframework==3.14.0
 psycopg2-binary==2.9.7
 
-# Useful for handling environment variables
 python-dotenv==1.0.0 
 
-# Django CORS Headers for handling cross-origin requests in development
-django-cors-headers==3.14.0
+django-cors-headers
 
 djangorestframework-simplejwt==5.3.1
 
 faker==9.3.1
 drf-yasg
+django-allauth
+requests
+cryptography
+google-auth

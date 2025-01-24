@@ -1,10 +1,14 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .models import Add   
+from .models import Add,SystemUser
 from .serializers import AddSerializer, RegisterSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
+from rest_framework_simplejwt.tokens import RefreshToken
+from allauth.socialaccount.models import SocialAccount
+from google.auth.transport.requests import Request
+from google.oauth2 import id_token
 
 
 @api_view(['POST'])
@@ -43,7 +47,6 @@ def add_view(request):
 @permission_classes([IsAuthenticated])
 def account(request):
     return Response({"message": "account, dziala"}, status=status.HTTP_200_OK)
-
 
 @api_view(['GET'])
 def search_view(request, query):
@@ -146,7 +149,6 @@ def update_ad(request, id):
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_ad(request, id):
@@ -187,3 +189,39 @@ def delete_assignment(request, add_id):
     except Add.DoesNotExist:
         return Response({"detail": "Ad not found."}, status=status.HTTP_404_NOT_FOUND)
 
+
+@api_view(['POST'])
+def google_oauth_callback(request):
+    token = request.data.get('token')
+    if not token:
+        return Response({'detail': 'No token provided.'}, status=400)
+
+    try:
+        id_info = id_token.verify_oauth2_token(token, Request(), audience=None, clock_skew_in_seconds=10)
+        google_id = id_info['sub']
+
+        # Spróbuj znaleźć powiązane konto
+        try:
+            social_account = SocialAccount.objects.get(provider='google', extra_data__contains={'sub': google_id})
+            user = social_account.user
+        except SocialAccount.DoesNotExist:
+            # Jeśli nie ma konta, utwórz nowe użytkownika i SocialAccount
+            user = SystemUser.objects.create(username=id_info['email'], email=id_info['email'])
+            social_account = SocialAccount.objects.create(
+                user=user,
+                provider='google',
+                uid=google_id,
+                extra_data=id_info,
+            )
+
+        # Wygeneruj tokeny
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+        })
+
+    except ValueError as e:
+        return Response({'detail': f'Invalid token: {str(e)}'}, status=400)
+    except Exception as e:
+        return Response({'detail': str(e)}, status=400)
