@@ -15,12 +15,11 @@ interface Ad {
 }
 
 const Favorites: React.FC = () => {
-    const [favorites, setFavorites] = useState<number[]>([]); // ID ulubionych ogłoszeń
+    const [favorites, setFavorites] = useState<number[]>([]); 
     const [userUsername, setUserUsername] = useState<string | null>(null);
     const [confirmationAdId, setConfirmationAdId] = useState<number | null>(null);
-    const [ads, setAds] = useState<Ad[]>([]); // Ogłoszenia
+    const [ads, setAds] = useState<Ad[]>([]);
 
-    // Pobranie ulubionych ID i użytkownika
     useEffect(() => {
         const fetchFavoriteIds = async () => {
             const token = sessionStorage.getItem("accessToken");
@@ -32,7 +31,7 @@ const Favorites: React.FC = () => {
                 });
                 if (response.ok) {
                     const ids = await response.json();
-                    setFavorites(ids); // Ustawienie ulubionych ID
+                    setFavorites(ids); 
                 } else {
                     console.error("Error fetching favorites ID");
                 }
@@ -73,7 +72,7 @@ const Favorites: React.FC = () => {
                 );
 
                 const favoriteDetails = await Promise.all(promises);
-                setAds(favoriteDetails); // Ustawienie pełnych danych ogłoszeń
+                setAds(favoriteDetails);
             } catch (error) {
                 console.error("Error while fetching ad details:", error);
             }

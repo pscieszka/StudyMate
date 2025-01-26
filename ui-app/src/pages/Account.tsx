@@ -21,7 +21,7 @@ const Account: React.FC = () => {
 
     useEffect(() => {
         const fetchAds = async () => {
-            const savedUsername = localStorage.getItem("username");
+            const savedUsername = sessionStorage.getItem("username");
             const token = sessionStorage.getItem("accessToken");
 
             console.log(savedUsername)
@@ -69,7 +69,6 @@ const Account: React.FC = () => {
                         "Failed to fetch assigned ads. Please check your login status."
                     );
                 }
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (err) {
                 setError("Something went wrong. Please try again.");
             }
@@ -95,7 +94,6 @@ const Account: React.FC = () => {
             } else {
                 alert("Failed to delete the ad.");
             }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
             alert("Something went wrong. Please try again.");
         }
@@ -115,11 +113,10 @@ const Account: React.FC = () => {
 
             if (response.ok) {
                 alert("Unassigned successfully.");
-                setAssignedAds((prevAds) => prevAds.filter((ad) => ad.id !== taskId)); // Usuń ogłoszenie z listy przypisanych
+                setAssignedAds((prevAds) => prevAds.filter((ad) => ad.id !== taskId)); 
             } else {
                 alert("Failed to unassign the ad.");
             }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
             alert("Something went wrong. Please try again.");
         }

@@ -200,12 +200,10 @@ def google_oauth_callback(request):
         id_info = id_token.verify_oauth2_token(token, Request(), audience=None, clock_skew_in_seconds=10)
         google_id = id_info['sub']
 
-        # Spróbuj znaleźć powiązane konto
         try:
             social_account = SocialAccount.objects.get(provider='google', extra_data__contains={'sub': google_id})
             user = social_account.user
         except SocialAccount.DoesNotExist:
-            # Jeśli nie ma konta, utwórz nowe użytkownika i SocialAccount
             user = SystemUser.objects.create(username=id_info['email'], email=id_info['email'])
             social_account = SocialAccount.objects.create(
                 user=user,
@@ -214,7 +212,6 @@ def google_oauth_callback(request):
                 extra_data=id_info,
             )
 
-        # Wygeneruj tokeny
         refresh = RefreshToken.for_user(user)
         return Response({
             'access': str(refresh.access_token),

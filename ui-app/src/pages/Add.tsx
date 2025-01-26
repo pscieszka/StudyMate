@@ -13,7 +13,7 @@ const Add: React.FC = () => {
         event.preventDefault();
 
         const token = sessionStorage.getItem("accessToken");
-        const username = localStorage.getItem("username");
+        const username = sessionStorage.getItem("username");
 
         const adData = {
             subject,
@@ -36,9 +36,8 @@ const Add: React.FC = () => {
             });
 
             if (response.ok) {
-                const data = await response.json();
                 alert("The advertisement has been added successfully!");
-                console.log(data);
+                window.location.reload();
             } else {
                 const errorData = await response.json();
                 console.error("Error:", errorData);

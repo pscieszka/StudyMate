@@ -39,8 +39,8 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("username", data.username);
-                localStorage.setItem("email", data.email);
+                sessionStorage.setItem("username", data.username);
+                sessionStorage.setItem("email", data.email);
             } else {
                 throw new Error("Failed to fetch user info.");
             }

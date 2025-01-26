@@ -21,8 +21,8 @@ function App() {
     const handleLogout = () => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
-        localStorage.removeItem("username");
-        localStorage.removeItem("email");
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("email");
         setIsAuthenticated(false);
     };
 

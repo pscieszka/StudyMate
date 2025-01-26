@@ -50,8 +50,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 AUTH_USER_MODEL = 'api.SystemUser'
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'  # Albo inna nazwa pola, jeśli je zmieniłeś
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Albo tylko 'email'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  
 ACCOUNT_EMAIL_REQUIRED = True
 
 LOGIN_REDIRECT_URL = '/api/home'
