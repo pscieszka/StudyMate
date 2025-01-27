@@ -15,7 +15,7 @@ interface Ad {
 }
 
 const Favorites: React.FC = () => {
-    const [favorites, setFavorites] = useState<number[]>([]); 
+    const [favorites, setFavorites] = useState<number[]>([]);
     const [userUsername, setUserUsername] = useState<string | null>(null);
     const [confirmationAdId, setConfirmationAdId] = useState<number | null>(null);
     const [ads, setAds] = useState<Ad[]>([]);
@@ -31,7 +31,7 @@ const Favorites: React.FC = () => {
                 });
                 if (response.ok) {
                     const ids = await response.json();
-                    setFavorites(ids); 
+                    setFavorites(ids);
                 } else {
                     console.error("Error fetching favorites ID");
                 }

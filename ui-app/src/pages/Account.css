@@ -18,7 +18,7 @@
 
 .section-left {
   border-right: 1px solid rgba(73, 89, 122, 0.26);
-  height: 90%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,7 +28,7 @@
 
 .section-right {
   border-right: 1px solid #49597a;
-  height: 90%;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;

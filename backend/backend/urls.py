@@ -24,9 +24,6 @@ schema_view = get_schema_view(
     openapi.Info(
         title="API Dokumentacja",
         default_version='v1',
-        description="Opis API dla Twojej aplikacji",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="twojemail@example.com"),
         license=openapi.License(name="MIT License"),
     ),
     public=True,

@@ -24,7 +24,7 @@ const handleSearch = async () => {
     if (response.ok) {
       const data = await response.json();
       console.log("Search results:", data);
-      navigate(`/search/${encodeURIComponent(searchQuery)}`); 
+      navigate(`/search/${encodeURIComponent(searchQuery)}`);
     } else {
       alert("An error occurred during the search.");
     }
