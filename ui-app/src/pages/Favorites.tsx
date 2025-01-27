@@ -80,6 +80,8 @@ const Favorites: React.FC = () => {
 
         if (favorites.length > 0) {
             fetchFavoriteDetails();
+        } else {
+            setAds([]); 
         }
     }, [favorites]);
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin,CredentialResponse } from "@react-oauth/google";  // Używamy GoogleLogin i importujemy GoogleLoginResponse
+import { GoogleLogin,CredentialResponse } from "@react-oauth/google"; 
 import "./LoginRegister.css";
 
 interface LoginRegisterProps {

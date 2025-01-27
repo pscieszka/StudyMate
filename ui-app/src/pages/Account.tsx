@@ -24,8 +24,6 @@ const Account: React.FC = () => {
             const savedUsername = sessionStorage.getItem("username");
             const token = sessionStorage.getItem("accessToken");
 
-            console.log(savedUsername)
-
             if (!savedUsername) {
                 setError("You are not logged in or your session has expired.");
                 return;
